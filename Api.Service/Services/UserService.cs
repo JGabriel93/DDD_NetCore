@@ -31,12 +31,12 @@ namespace Api.Service.Services
             return await _repository.SelectAllAsync();
         }
 
-        public async Task<Guid> Post(UserEntity entity)
+        public async Task<Guid> Insert(UserEntity entity)
         {
             return await _repository.InsertAsync(entity);
         }
 
-        public async Task<UserEntity> Put(UserEntity entity)
+        public async Task<UserEntity> Update(UserEntity entity)
         {
             return await _repository.UpdateAsync(entity);
         }

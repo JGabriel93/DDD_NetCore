@@ -50,6 +50,7 @@ namespace Api.Data.Repository
                     entity.Id = Guid.NewGuid();
                 }
 
+                entity.CreateAt = DateTime.UtcNow;
                 _dataset.Add(entity);
 
                 await _context.SaveChangesAsync();

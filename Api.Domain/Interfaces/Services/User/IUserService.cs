@@ -9,8 +9,8 @@ namespace Api.Domain.Interfaces.Services.User
     {
         Task<UserEntity> Get(Guid id);
         Task<IEnumerable<UserEntity>> Get();
-        Task<Guid> Post(UserEntity entity);
-        Task<UserEntity> Put(UserEntity entity);
+        Task<Guid> Insert(UserEntity entity);
+        Task<UserEntity> Update(UserEntity entity);
         Task<bool> Delete(Guid id);
     }
 }
