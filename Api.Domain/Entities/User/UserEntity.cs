@@ -1,4 +1,4 @@
-namespace Api.Domain.Entities
+namespace Api.Domain.Entities.User
 {
     public class UserEntity : BaseEntity
     {

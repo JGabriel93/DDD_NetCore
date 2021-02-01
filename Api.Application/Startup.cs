@@ -3,12 +3,16 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Api.CrossCutting.DependencyInjection;
+using Api.CrossCutting.Mappings;
+using Api.Data.Context;
 using Api.Domain.Security;
+using AutoMapper;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
@@ -33,10 +37,9 @@ namespace application
             ConfigureService.ConfigureDependenciesService(services);
             ConfigureRepository.ConfigureDependenciesRepository(services);
 
+            ConfigureMapper(services);
             ConfigureAuthentication(services);
-
             services.AddControllers();
-
             ConfigureSwagger(services);
         }
 
@@ -62,6 +65,18 @@ namespace application
             {
                 endpoints.MapControllers();
             });
+
+            if (Environment.GetEnvironmentVariable("MIGRATION").ToUpper() == "APLICAR")
+            {
+                using (var service = app.ApplicationServices.GetRequiredService<IServiceScopeFactory>()
+                                                            .CreateScope())
+                {
+                    using (var context = service.ServiceProvider.GetService<MyContext>())
+                    {
+                        context.Database.Migrate();
+                    }
+                }
+            }
         }
 
         public void ConfigureSwagger(IServiceCollection services)
@@ -133,6 +148,19 @@ namespace application
                 .AddAuthenticationSchemes(JwtBearerDefaults.AuthenticationScheme)
                 .RequireAuthenticatedUser().Build());
             });
+        }
+
+        public void ConfigureMapper(IServiceCollection services)
+        {
+            var config = new AutoMapper.MapperConfiguration(cfg =>
+            {
+                cfg.AddProfile(new DtoToModelProfile());
+                cfg.AddProfile(new EntityToDtoProfile());
+                cfg.AddProfile(new ModelToEntityProfile());
+            });
+
+            var mapper = config.CreateMapper();
+            services.AddSingleton(mapper);
         }
     }
 }

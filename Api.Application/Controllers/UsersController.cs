@@ -1,6 +1,7 @@
 using System;
 using System.Net;
 using System.Threading.Tasks;
+using Api.Domain.Dtos.User;
 using Api.Domain.Entities;
 using Api.Domain.Interfaces.Services.User;
 using Microsoft.AspNetCore.Authorization;
@@ -55,14 +56,14 @@ namespace Api.Application.Controllers
 
         [Authorize("Bearer")]
         [HttpPost]
-        public async Task<ActionResult> Insert([FromBody] UserEntity entity)
+        public async Task<ActionResult> Insert([FromBody] UserDto dto)
         {
             if (!ModelState.IsValid)
                 return BadRequest(ModelState);
 
             try
             {
-                var result = await _service.Insert(entity);
+                var result = await _service.Insert(dto);
                 return Created(new Uri(Url.Link("GetBy", new { id = result })), result);
 
             }
@@ -74,14 +75,15 @@ namespace Api.Application.Controllers
 
         [Authorize("Bearer")]
         [HttpPut]
-        public async Task<ActionResult> Update([FromBody] UserEntity entity)
+        [Route("{id}")]
+        public async Task<ActionResult> Update([FromBody] UserDto dto, Guid id)
         {
             if (!ModelState.IsValid)
                 return BadRequest(ModelState);
 
             try
             {
-                var result = await _service.Update(entity);
+                var result = await _service.Update(dto, id);
                 return Ok(result);
             }
             catch (ArgumentException ex)

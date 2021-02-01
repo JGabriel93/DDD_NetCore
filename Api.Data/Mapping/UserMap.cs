@@ -1,4 +1,4 @@
-using Api.Domain.Entities;
+using Api.Domain.Entities.User;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 

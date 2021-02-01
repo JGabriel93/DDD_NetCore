@@ -75,7 +75,7 @@ namespace Api.Data.Repository
             }
             catch (Exception)
             {
-                throw new Exception("Ocorreu um erro");
+                throw;
             }
         }
 
@@ -91,14 +91,15 @@ namespace Api.Data.Repository
             }
         }
 
-        public async Task<T> UpdateAsync(T entity)
+        public async Task<T> UpdateAsync(T entity, Guid id)
         {
             try
             {
-                var result = await _dataset.SingleOrDefaultAsync(d => d.Id.Equals(entity.Id));
+                var result = await _dataset.SingleOrDefaultAsync(d => d.Id.Equals(id));
                 if (result == null)
                     throw new Exception("Registro não encontrado");
 
+                entity.Id = id;
                 entity.UpdateAt = DateTime.UtcNow;
                 entity.CreateAt = result.CreateAt;
 
@@ -107,7 +108,7 @@ namespace Api.Data.Repository
             }
             catch (Exception)
             {
-                throw new Exception("Ocorreu um erro");
+                throw;
             }
 
             return entity;

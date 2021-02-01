@@ -3,8 +3,8 @@ using System.IdentityModel.Tokens.Jwt;
 using System.Security.Claims;
 using System.Security.Principal;
 using System.Threading.Tasks;
-using Api.Domain.Dtos;
-using Api.Domain.Entities;
+using Api.Domain.Dtos.Login;
+using Api.Domain.Entities.User;
 using Api.Domain.Interfaces.Services.User;
 using Api.Domain.Repository;
 using Api.Domain.Security;
@@ -47,7 +47,7 @@ namespace Api.Service.Services
                         new Claim(JwtRegisteredClaimNames.UniqueName,user.Email)
                     });
 
-                    var createDate = DateTime.Now;
+                    var createDate = DateTime.UtcNow;
                     var expirationDate = createDate + TimeSpan.FromSeconds(_tokenConfigurations.Seconds);
 
                     var handler = new JwtSecurityTokenHandler();
