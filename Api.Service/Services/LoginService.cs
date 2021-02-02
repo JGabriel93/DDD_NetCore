@@ -76,12 +76,12 @@ namespace Api.Service.Services
 
         private object SucessObject(DateTime createDate, DateTime expirationDate, string token, UserEntity entity)
         {
-            const string FORMATO_DATA = "yyyy-MM-dd HH:mm:ss";
+            const string DATE_FORMAT = "yyyy-MM-dd HH:mm:ss";
             return new
             {
                 authenticated = true,
-                created = createDate.ToString(FORMATO_DATA),
-                expiration = expirationDate.ToString(FORMATO_DATA),
+                created = createDate.ToString(DATE_FORMAT),
+                expiration = expirationDate.ToString(DATE_FORMAT),
                 acessToken = token,
                 userName = entity.Email,
                 message = "Login realizado com sucesso"
