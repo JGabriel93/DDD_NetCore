@@ -35,24 +35,29 @@ namespace Api.Service.Services
         {
             if (dto != null && !string.IsNullOrWhiteSpace(dto.Email))
             {
-                var user = await _repository.FindByLogin(dto.Email);
+                var user = await _repository.FindBy(dto.Email);
                 if (user == null)
                     return new { authenticated = false, message = "Falha na autenticação" };
                 else
                 {
-                    var identity = new ClaimsIdentity(new GenericIdentity(user.Email),
-                    new[]
+                    if (BCrypt.Net.BCrypt.Verify(dto.Password, user.Password))
                     {
-                        new Claim(JwtRegisteredClaimNames.Jti, Guid.NewGuid().ToString()),
-                        new Claim(JwtRegisteredClaimNames.UniqueName,user.Email)
-                    });
+                        var identity = new ClaimsIdentity(new GenericIdentity(user.Email),
+                        new[]
+                        {
+                            new Claim(JwtRegisteredClaimNames.Jti, Guid.NewGuid().ToString()),
+                            new Claim(JwtRegisteredClaimNames.UniqueName,user.Email)
+                        });
 
-                    var createDate = DateTime.UtcNow;
-                    var expirationDate = createDate + TimeSpan.FromSeconds(_tokenConfigurations.Seconds);
+                        var createDate = DateTime.UtcNow;
+                        var expirationDate = createDate + TimeSpan.FromSeconds(_tokenConfigurations.Seconds);
 
-                    var handler = new JwtSecurityTokenHandler();
-                    var token = CreateToken(identity, createDate, expirationDate, handler);
-                    return SucessObject(createDate, expirationDate, token, user);
+                        var handler = new JwtSecurityTokenHandler();
+                        var token = CreateToken(identity, createDate, expirationDate, handler);
+                        return SucessObject(createDate, expirationDate, token, user);
+                    }
+                    else
+                        return new { authenticated = false, message = "Falha na autenticação" };
                 }
             }
             else

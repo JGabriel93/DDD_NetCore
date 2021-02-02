@@ -42,6 +42,9 @@ namespace Api.Service.Services
         {
             var model = _mapper.Map<UserModel>(dto);
             var entity = _mapper.Map<UserEntity>(model);
+
+            entity.Password = BCrypt.Net.BCrypt.HashPassword(entity.Password, BCrypt.Net.BCrypt.GenerateSalt());
+
             return await _repository.InsertAsync(entity);
         }
 
@@ -49,6 +52,9 @@ namespace Api.Service.Services
         {
             var model = _mapper.Map<UserModel>(dto);
             var entity = _mapper.Map<UserEntity>(model);
+
+            entity.Password = BCrypt.Net.BCrypt.HashPassword(entity.Password, BCrypt.Net.BCrypt.GenerateSalt());
+
             var result = await _repository.UpdateAsync(entity, id);
             return _mapper.Map<UserDtoResult>(result);
         }

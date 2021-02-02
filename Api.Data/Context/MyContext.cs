@@ -20,9 +20,10 @@ namespace Api.Data.Context
             modelBuilder.Entity<UserEntity>().HasData(new UserEntity
             {
                 Id = Guid.NewGuid(),
-                Name = "Admin",
+                Name = "admin",
                 Email = "admin@mail.com",
                 Cpf = "01194433502",
+                Password = BCrypt.Net.BCrypt.HashPassword("admin", BCrypt.Net.BCrypt.GenerateSalt()),
                 CreateAt = DateTime.UtcNow,
                 UpdateAt = null
             });

@@ -18,6 +18,13 @@ namespace Api.Domain.Models.User
             set { _name = value; }
         }
 
+        private string _cpf;
+        public string Cpf
+        {
+            get { return _cpf; }
+            set { _cpf = value; }
+        }
+
         private string _email;
         public string Email
         {
@@ -25,11 +32,11 @@ namespace Api.Domain.Models.User
             set { _email = value; }
         }
 
-        private string _cpf;
-        public string Cpf
+        private string _password;
+        public string Password
         {
-            get { return _cpf; }
-            set { _cpf = value; }
+            get { return _password; }
+            set { _password = value; }
         }
 
         private DateTime? _createAt;

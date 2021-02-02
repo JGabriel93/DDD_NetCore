@@ -15,5 +15,8 @@ namespace Api.Domain.Dtos.User
 
         [Required(ErrorMessage = "CPF é obrigatório")]
         public string Cpf { get; set; }
+
+        [Required(ErrorMessage = "Senha é obrigatória")]
+        public string Password { get; set; }
     }
 }
