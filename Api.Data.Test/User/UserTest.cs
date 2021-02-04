@@ -7,18 +7,18 @@ using Api.Domain.Entities.User;
 using Microsoft.Extensions.DependencyInjection;
 using Xunit;
 
-namespace Api.Data.Test
+namespace Api.Data.Test.User
 {
-    public class UsuarioTest : BaseTest, IClassFixture<DbTeste>
+    public class UserTest : BaseTest, IClassFixture<DbTeste>
     {
         private ServiceProvider _serviceProvider;
 
-        public UsuarioTest(DbTeste dbTeste)
+        public UserTest(DbTeste dbTeste)
         {
             _serviceProvider = dbTeste.ServiceProvider;
         }
 
-        [Fact(DisplayName = "CRUD user")]
+        [Fact(DisplayName = "Mantida a integridade do CRUD de usuário")]
         [Trait("CRUD", "UserEntity")]
         public async Task CrudUser()
         {
