@@ -21,9 +21,12 @@
             },
             "env": {
                 "ASPNETCORE_ENVIRONMENT": "Development",
-                "DB_CONNECTION": "Server=localhost;Port=3306;DataBase=dbAPI;Uid=root;Pwd=admin",
+                "DB_CONNECTION": "Persist Security Info=True;Server=localhost;Port=3306;DataBase=dbAPI;Uid=root;Pwd=admin",
                 "DATABASE": "MYSQL",
-                "MIGRATION": "NAO_APLICAR"
+                "MIGRATION": "APPLY",
+                "Audience": "http://localhost",
+                "Issuer": "DDD_NetCore",
+                "Seconds": "600"
             },
             "sourceFileMap": {
                 "/Views": "${workspaceFolder}/Views"
