@@ -32,14 +32,14 @@ namespace Api.Service.Services
         {
             if (dto != null && !string.IsNullOrWhiteSpace(dto.Email))
             {
-                var user = await _repository.FindBy(dto.Email);
+                var user = await _repository.FindByEmail(dto.Email);
                 if (user == null)
                     return new { authenticated = false, message = "Falha na autenticação" };
                 else
                 {
                     if (BCrypt.Net.BCrypt.Verify(dto.Password, user.Password))
                     {
-                        var identity = new ClaimsIdentity(new GenericIdentity(user.Email),
+                        var identity = new ClaimsIdentity(new GenericIdentity(user.Id.ToString()),
                         new[]
                         {
                             new Claim(JwtRegisteredClaimNames.Jti, Guid.NewGuid().ToString()),
@@ -51,6 +51,7 @@ namespace Api.Service.Services
 
                         var handler = new JwtSecurityTokenHandler();
                         var token = CreateToken(identity, createDate, expirationDate, handler);
+                        var teste = handler.ReadToken(token);
                         return SucessObject(createDate, expirationDate, token, user);
                     }
                     else

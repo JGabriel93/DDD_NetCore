@@ -1,3 +1,4 @@
+using Api.Domain.Entities.CurrentAccount;
 using Api.Domain.Entities.User;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
@@ -10,9 +11,9 @@ namespace Api.Data.Mapping
         {
             builder.ToTable("TB_USER");
 
-            builder.HasKey(p => p.Id);
+            builder.HasKey(u => u.Id);
 
-            builder.HasIndex(p => p.Cpf)
+            builder.HasIndex(u => u.Cpf)
                 .IsUnique();
 
             builder.Property(u => u.Name)
@@ -41,6 +42,10 @@ namespace Api.Data.Mapping
 
             builder.Property(u => u.UpdateAt)
                 .HasColumnName("dt_update");
+
+            builder.HasOne(u => u.CurrentAccount)
+                .WithOne(c => c.User)
+                .HasForeignKey<CurrentAccountEntity>(c => c.UserId);
         }
     }
 }

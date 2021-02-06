@@ -14,12 +14,12 @@ namespace Api.Data.Test
         }
     }
 
-    public class DbTeste : IDisposable
+    public class DbTest : IDisposable
     {
         private string dbName = $"dbAPI_{Guid.NewGuid().ToString().Replace("-", string.Empty)}";
         public ServiceProvider ServiceProvider { get; private set; }
 
-        public DbTeste()
+        public DbTest()
         {
             var serviceCollection = new ServiceCollection();
             serviceCollection

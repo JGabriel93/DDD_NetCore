@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Threading.Tasks;
 using Api.Data.Context;
 using Api.Domain.Entities;
@@ -8,7 +9,7 @@ using Microsoft.EntityFrameworkCore;
 
 namespace Api.Data.Repository
 {
-    public class BaseRepository<T> : IRepository<T> where T : BaseEntity
+    public class BaseRepository<T> : IBaseRepository<T> where T : BaseEntity
     {
         protected readonly MyContext _context;
         private DbSet<T> _dataset;
@@ -83,7 +84,7 @@ namespace Api.Data.Repository
         {
             try
             {
-                return await _dataset.ToListAsync();
+                return await _dataset.OrderByDescending(d => d.CreateAt).ToListAsync();
             }
             catch (Exception)
             {

@@ -4,8 +4,10 @@ using Api.Domain.Interfaces;
 
 namespace Api.Domain.Repository
 {
-    public interface IUserRepository : IRepository<UserEntity>
+    public interface IUserRepository : IBaseRepository<UserEntity>
     {
-        Task<UserEntity> FindBy(string email);
+        Task<UserEntity> FindByEmail(string email);
+        Task<UserEntity> FindByCpf(string cpf);
+        Task<bool> ExistsByCpf(string cpf);
     }
 }

@@ -3,14 +3,16 @@ using System;
 using Api.Data.Context;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace Data.Migrations
 {
     [DbContext(typeof(MyContext))]
-    partial class MyContextModelSnapshot : ModelSnapshot
+    [Migration("20210205213532_CreateTable_CurrentAccount_HistoricCurrentAccount")]
+    partial class CreateTable_CurrentAccount_HistoricCurrentAccount
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -46,24 +48,6 @@ namespace Data.Migrations
                         .IsUnique();
 
                     b.ToTable("TB_CURRENT_ACCOUNT");
-
-                    b.HasData(
-                        new
-                        {
-                            Id = new Guid("f7f8325d-7dab-425b-a59d-2e25f5354c62"),
-                            Balance = 1000m,
-                            CreateAt = new DateTime(2021, 2, 5, 21, 46, 24, 361, DateTimeKind.Utc).AddTicks(4373),
-                            UpdateAt = new DateTime(2021, 2, 5, 21, 46, 24, 361, DateTimeKind.Utc).AddTicks(4373),
-                            UserId = new Guid("3362d96b-e3ff-4cc8-85b5-da08a612e62f")
-                        },
-                        new
-                        {
-                            Id = new Guid("cee743f5-513c-4464-98d2-6e8dfaba1038"),
-                            Balance = 0m,
-                            CreateAt = new DateTime(2021, 2, 5, 21, 46, 24, 361, DateTimeKind.Utc).AddTicks(4373),
-                            UpdateAt = new DateTime(2021, 2, 5, 21, 46, 24, 361, DateTimeKind.Utc).AddTicks(4373),
-                            UserId = new Guid("b171c698-abec-418c-9357-80d0b9199d1c")
-                        });
                 });
 
             modelBuilder.Entity("Api.Domain.Entities.CurrentAccount.HistoricCurrentAccountEntity", b =>
@@ -100,16 +84,6 @@ namespace Data.Migrations
                     b.HasIndex("CurrentAccountId");
 
                     b.ToTable("TB_HISTORIC_CURRENT_ACCOUNT");
-
-                    b.HasData(
-                        new
-                        {
-                            Id = new Guid("a33f9455-ccb4-4b77-83ba-16dd3a7436a3"),
-                            AmountMoved = 1000m,
-                            CreateAt = new DateTime(2021, 2, 5, 21, 46, 24, 361, DateTimeKind.Utc).AddTicks(4373),
-                            CurrentAccountId = new Guid("f7f8325d-7dab-425b-a59d-2e25f5354c62"),
-                            Movement = "D"
-                        });
                 });
 
             modelBuilder.Entity("Api.Domain.Entities.User.UserEntity", b =>
@@ -163,19 +137,19 @@ namespace Data.Migrations
                         {
                             Id = new Guid("3362d96b-e3ff-4cc8-85b5-da08a612e62f"),
                             Cpf = "01194433502",
-                            CreateAt = new DateTime(2021, 2, 5, 21, 46, 24, 120, DateTimeKind.Utc).AddTicks(9436),
+                            CreateAt = new DateTime(2021, 2, 5, 21, 35, 31, 667, DateTimeKind.Utc).AddTicks(5085),
                             Email = "admin@mail.com",
                             Name = "João",
-                            Password = "$2b$10$/UzCXCmRbxmkE3rXwn8r1efR/Gh40gM72zHNvzvObq3HLwVjKySeS"
+                            Password = "$2b$10$I2BAk/kfX/dVWnvwv.1nNuS06F3LfiX6yzmpZPjSgZcmnQerCWwWK"
                         },
                         new
                         {
                             Id = new Guid("b171c698-abec-418c-9357-80d0b9199d1c"),
                             Cpf = "26687020544",
-                            CreateAt = new DateTime(2021, 2, 5, 21, 46, 24, 120, DateTimeKind.Utc).AddTicks(9436),
+                            CreateAt = new DateTime(2021, 2, 5, 21, 35, 31, 667, DateTimeKind.Utc).AddTicks(5085),
                             Email = "jose@mail.com",
                             Name = "José",
-                            Password = "$2b$10$2BnbmaBHM7/Mh1k8iUWE1eV8BVzQwvnFVQeqXEwPOAiMZirt/llvW"
+                            Password = "$2b$10$wvTGYJlEzDCUYg87ecaoYeURs2D2PwB5WOj0ytsdPoJV8lX/wjOhi"
                         });
                 });
 

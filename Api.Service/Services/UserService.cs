@@ -2,22 +2,25 @@ using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 using Api.Domain.Dtos.User;
+using Api.Domain.Entities.CurrentAccount;
 using Api.Domain.Entities.User;
-using Api.Domain.Interfaces;
 using Api.Domain.Interfaces.Services.User;
 using Api.Domain.Models.User;
+using Api.Domain.Repository;
 using AutoMapper;
 
 namespace Api.Service.Services
 {
     public class UserService : IUserService
     {
-        private IRepository<UserEntity> _repository;
+        private IUserRepository _repository;
+        private ICurrentAccountRepository _repositoryCurrentAccount;
         private readonly IMapper _mapper;
 
-        public UserService(IRepository<UserEntity> repository, IMapper mapper)
+        public UserService(IUserRepository repository, ICurrentAccountRepository repositoryCurrentAccount, IMapper mapper)
         {
             _repository = repository;
+            _repositoryCurrentAccount = repositoryCurrentAccount;
             _mapper = mapper;
         }
 
@@ -43,9 +46,15 @@ namespace Api.Service.Services
             var model = _mapper.Map<UserModel>(dto);
             var entity = _mapper.Map<UserEntity>(model);
 
+            if (await _repository.ExistsByCpf(entity.Cpf))
+                throw new Exception("CPF já cadastrado");
+
             entity.Password = BCrypt.Net.BCrypt.HashPassword(entity.Password, BCrypt.Net.BCrypt.GenerateSalt());
 
-            return await _repository.InsertAsync(entity);
+            var resultId = await _repository.InsertAsync(entity);
+            await InsertCurrentAccount(resultId);
+
+            return resultId;
         }
 
         public async Task<UserDtoResult> Update(UserDto dto, Guid id)
@@ -57,6 +66,17 @@ namespace Api.Service.Services
 
             var result = await _repository.UpdateAsync(entity, id);
             return _mapper.Map<UserDtoResult>(result);
+        }
+
+        private async Task<Guid> InsertCurrentAccount(Guid userId)
+        {
+            var entity = new CurrentAccountEntity
+            {
+                Balance = 0,
+                UserId = userId
+            };
+
+            return await _repositoryCurrentAccount.InsertAsync(entity);
         }
     }
 }

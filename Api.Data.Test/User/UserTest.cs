@@ -9,11 +9,11 @@ using Xunit;
 
 namespace Api.Data.Test.User
 {
-    public class UserTest : BaseTest, IClassFixture<DbTeste>
+    public class UserTest : BaseTest, IClassFixture<DbTest>
     {
         private ServiceProvider _serviceProvider;
 
-        public UserTest(DbTeste dbTeste)
+        public UserTest(DbTest dbTeste)
         {
             _serviceProvider = dbTeste.ServiceProvider;
         }
@@ -24,7 +24,7 @@ namespace Api.Data.Test.User
         {
             const string VALID_CPF = "12345678909";
             const string VALID_PASSWORD = "teste123";
-            const string ADMIN_NAME = "admin";
+            const string ADMIN_NAME = "João";
             const string ADMIN_EMAIL = "admin@mail.com";
             const string ADMIN_CPF = "01194433502";
 
@@ -70,7 +70,7 @@ namespace Api.Data.Test.User
                 var removed = await repository.DeleteAsync(resultSelect.Id);
                 Assert.True(removed);
 
-                var standardUser = await repository.FindBy(ADMIN_EMAIL);
+                var standardUser = await repository.FindByEmail(ADMIN_EMAIL);
                 Assert.Equal(ADMIN_NAME, standardUser.Name);
                 Assert.Equal(ADMIN_EMAIL, standardUser.Email);
                 Assert.Equal(ADMIN_CPF, standardUser.Cpf);

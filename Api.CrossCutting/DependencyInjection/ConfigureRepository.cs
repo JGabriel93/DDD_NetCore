@@ -13,8 +13,10 @@ namespace Api.CrossCutting.DependencyInjection
     {
         public static void ConfigureDependenciesRepository(IServiceCollection serviceCollection)
         {
-            serviceCollection.AddScoped(typeof(IRepository<>), typeof(BaseRepository<>));
+            serviceCollection.AddScoped(typeof(IBaseRepository<>), typeof(BaseRepository<>));
             serviceCollection.AddScoped<IUserRepository, UserImplementation>();
+            serviceCollection.AddScoped<ICurrentAccountRepository, CurrentAccountImplementation>();
+            serviceCollection.AddScoped<IHistoricCurrentAccountRepository, HistoricCurrentAccountImplementation>();
 
             serviceCollection.AddDbContext<MyContext>(context => context.UseMySql(Environment.GetEnvironmentVariable("DB_CONNECTION")));
         }

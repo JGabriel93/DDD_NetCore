@@ -5,7 +5,7 @@ using Api.Domain.Entities;
 
 namespace Api.Domain.Interfaces
 {
-    public interface IRepository<T> where T : BaseEntity
+    public interface IBaseRepository<T> where T : BaseEntity
     {
         Task<Guid> InsertAsync(T entity);
         Task<T> UpdateAsync(T entity, Guid id);
