@@ -44,6 +44,7 @@ namespace application
                 Environment.SetEnvironmentVariable("Audience", "http://localhost");
                 Environment.SetEnvironmentVariable("Issuer", "DDD_NetCore");
                 Environment.SetEnvironmentVariable("Seconds", "600");
+                Environment.SetEnvironmentVariable("YIELD_VALUE", "0,005");
             }
 
             ConfigureService.ConfigureDependenciesService(services);

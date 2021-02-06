@@ -115,5 +115,24 @@ namespace Api.Application.Controllers
                 return StatusCode((int)HttpStatusCode.InternalServerError, ex.Message);
             }
         }
+
+        [Authorize("Bearer")]
+        [HttpPost]
+        [Route("ApplyIncome")]
+        public async Task<ActionResult> ApplyIncome()
+        {
+            if (!ModelState.IsValid)
+                return BadRequest(ModelState);
+
+            try
+            {
+                var result = await _service.ApplyIncome();
+                return Ok(result);
+            }
+            catch (ArgumentException ex)
+            {
+                return StatusCode((int)HttpStatusCode.InternalServerError, ex.Message);
+            }
+        }
     }
 }

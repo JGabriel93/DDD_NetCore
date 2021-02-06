@@ -14,5 +14,6 @@ namespace Api.Domain.Interfaces.Services.CurrentAccount
         Task<CurrentAccountDtoResult> UpdatePayment(PaymentDto paymentDto, Guid userId);
         Task<CurrentAccountDtoResult> UpdateTransfer(TransferDto transferDto, Guid userId);
         Task<CurrentAccountDtoResult> UpdateWithdraw(WithdrawDto withdrawDto, Guid userId);
+        Task<bool> ApplyIncome();
     }
 }

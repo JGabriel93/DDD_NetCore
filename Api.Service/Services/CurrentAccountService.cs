@@ -100,6 +100,33 @@ namespace Api.Service.Services
             return _mapper.Map<CurrentAccountDtoResult>(result);
         }
 
+        public async Task<bool> ApplyIncome()
+        {
+            try
+            {
+                var listAccounts = await _repository.SelectAllAsync();
+                var yield = Convert.ToDecimal(Environment.GetEnvironmentVariable("YIELD_VALUE"));
+                var addedValue = decimal.Zero;
+
+                foreach (var account in listAccounts)
+                {
+                    if (account.Balance > 0)
+                    {
+                        addedValue = decimal.Round(decimal.Divide(decimal.Multiply(account.Balance, yield), 100), 2);
+                        account.Balance += addedValue;
+                        await _repository.UpdateAsync(account, account.Id);
+                        await InsertHistory("R", addedValue, account.Id);
+                    }
+                }
+
+                return true;
+            }
+            catch (Exception)
+            {
+                return false;
+            }
+        }
+
         private void ValidateBalance(decimal balance, decimal debit)
         {
             if (balance < debit)
