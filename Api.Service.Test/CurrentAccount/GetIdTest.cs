@@ -20,10 +20,10 @@ namespace Api.Service.Test.CurrentAccount
         public async Task TestGet()
         {
             _serviceMock = new Mock<ICurrentAccountService>();
-            _serviceMock.Setup(m => m.Get(Id)).ReturnsAsync(currentAccountDtoResult);
+            _serviceMock.Setup(m => m.Get(UserId)).ReturnsAsync(currentAccountDtoResult);
             _service = _serviceMock.Object;
 
-            var result = await _service.Get(Id);
+            var result = await _service.Get(UserId);
             Assert.NotNull(result);
             Assert.True(result.Id == Id);
             Assert.Equal(Balance, result.Balance);
@@ -33,7 +33,7 @@ namespace Api.Service.Test.CurrentAccount
             _serviceMock.Setup(m => m.Get(It.IsAny<Guid>())).Returns(Task.FromResult((CurrentAccountDtoResult)null));
             _service = _serviceMock.Object;
 
-            var resultNull = await _service.Get(Id);
+            var resultNull = await _service.Get(UserId);
             Assert.Null(resultNull);
 
             var listResult = new List<HistoricCurrentAccountDtoResult>();

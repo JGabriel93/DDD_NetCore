@@ -18,17 +18,17 @@ namespace Api.Application.Controllers
             _service = service;
         }
 
-        [Authorize("Bearer")]
+        //[Authorize("Bearer")]
         [HttpGet]
-        [Route("")]
-        public async Task<ActionResult> Get()
+        [Route("{userId}")]
+        public async Task<ActionResult> Get(Guid userId)
         {
             if (!ModelState.IsValid)
                 return BadRequest(ModelState);
 
             try
             {
-                var userId = new Guid(User.Identity.Name);
+                //var userId = new Guid(User.Identity.Name);
                 return Ok(await _service.FindByUserId(userId));
             }
             catch (ArgumentException ex)

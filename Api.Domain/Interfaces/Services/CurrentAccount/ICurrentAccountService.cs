@@ -8,7 +8,7 @@ namespace Api.Domain.Interfaces.Services.CurrentAccount
 {
     public interface ICurrentAccountService
     {
-        Task<CurrentAccountDtoResult> Get(Guid id);
+        Task<CurrentAccountDtoResult> Get(Guid userId);
         Task<Guid> Insert(CurrentAccountEntity entity);
         Task<CurrentAccountDtoResult> UpdateDeposit(DepositDto depositDto, Guid userId);
         Task<CurrentAccountDtoResult> UpdatePayment(PaymentDto paymentDto, Guid userId);

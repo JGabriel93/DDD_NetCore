@@ -19,7 +19,7 @@ namespace Api.Application.Controllers
             _service = service;
         }
 
-        [Authorize("Bearer")]
+        [AllowAnonymous]
         [HttpGet]
         public async Task<ActionResult> GetAll()
         {
@@ -36,7 +36,7 @@ namespace Api.Application.Controllers
             }
         }
 
-        [Authorize("Bearer")]
+        [AllowAnonymous]
         [HttpGet]
         [Route("{id}", Name = "GetBy")]
         public async Task<ActionResult> Get(Guid id)
@@ -54,7 +54,7 @@ namespace Api.Application.Controllers
             }
         }
 
-        [Authorize("Bearer")]
+        [AllowAnonymous]
         [HttpPost]
         public async Task<ActionResult> Insert([FromBody] UserDto dto)
         {
@@ -73,7 +73,7 @@ namespace Api.Application.Controllers
             }
         }
 
-        [Authorize("Bearer")]
+        [AllowAnonymous]
         [HttpPut]
         [Route("{id}")]
         public async Task<ActionResult> Update([FromBody] UserDto dto, Guid id)
@@ -92,7 +92,7 @@ namespace Api.Application.Controllers
             }
         }
 
-        [Authorize("Bearer")]
+        [AllowAnonymous]
         [HttpDelete]
         [Route("{id}")]
         public async Task<ActionResult> Delete(Guid id)

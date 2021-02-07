@@ -24,6 +24,8 @@ namespace application
 {
     public class Startup
     {
+        readonly string MyAllowSpecificOrigins = "_myAllowSpecificOrigins";
+
         public Startup(IConfiguration configuration, IWebHostEnvironment environment)
         {
             Configuration = configuration;
@@ -36,6 +38,15 @@ namespace application
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
+            services.AddCors(options =>
+            {
+                options.AddPolicy(name: MyAllowSpecificOrigins,
+                 builder =>
+                 {
+                     builder.AllowAnyHeader().AllowAnyOrigin().AllowAnyMethod();
+                 });
+            });
+
             if (_environment.IsEnvironment("Test"))
             {
                 Environment.SetEnvironmentVariable("DB_CONNECTION", "Persist Security Info=True;Server=localhost;Port=3306;DataBase=dbAPI_IntegrationTest;Uid=root;Pwd=admin");
@@ -71,6 +82,8 @@ namespace application
             }
 
             app.UseRouting();
+
+            app.UseCors(MyAllowSpecificOrigins);
 
             app.UseAuthorization();
 

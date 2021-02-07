@@ -27,9 +27,10 @@ namespace Api.Service.Services
             _mapper = mapper;
         }
 
-        public async Task<CurrentAccountDtoResult> Get(Guid id)
+        public async Task<CurrentAccountDtoResult> Get(Guid userId)
         {
-            var entity = await _repository.SelectAsync(id);
+            var entityUser = await FindByUserId(userId);
+            var entity = await _repository.SelectAsync(entityUser.Id);
             return _mapper.Map<CurrentAccountDtoResult>(entity);
         }
 
