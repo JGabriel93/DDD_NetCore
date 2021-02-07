@@ -1,0 +1,10 @@
+<div>
+    <h3>Realizar depósito</h3>
+</div>
+<form class="example-container" [formGroup]="depositForm" (ngSubmit)="addDeposit(depositForm.value)">
+    <mat-form-field>
+        <input matInput name="value" placeholder="Valor" formControlName="value" type="number">
+    </mat-form-field>
+
+    <button type="submit" [disabled]="!depositForm.valid" mat-button color="primary">Depositar</button>
+</form>

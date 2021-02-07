@@ -1,0 +1,10 @@
+<div>
+    <h3>Realizar retirada</h3>
+</div>
+<form class="example-container" [formGroup]="withDrawForm" (ngSubmit)="addWithdraw(withDrawForm.value)">
+    <mat-form-field>
+        <input matInput name="value" placeholder="Valor" formControlName="value" type="number">
+    </mat-form-field>
+
+    <button type="submit" [disabled]="!withDrawForm.valid" mat-button color="primary">Retirar</button>
+</form>

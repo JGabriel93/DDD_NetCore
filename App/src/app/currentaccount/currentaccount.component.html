@@ -1,0 +1,36 @@
+<div class="example-container mat-elevation-z8">
+    <div class="example-loading-shade" *ngIf="isLoadingResults">
+        <mat-spinner *ngIf="isLoadingResults"></mat-spinner>
+    </div>
+    <div class="button-row">
+        <button mat-flat-button color="accent" [routerLink]="['/users']">
+            <mat-icon>list</mat-icon> Voltar
+        </button>
+    </div>
+    <mat-card class="example-card">
+        <mat-card-header>
+            <mat-card-title>
+                <h2>{{currentAccount.balance}}</h2>
+            </mat-card-title>
+            <mat-card-subtitle>{{currentAccount.updateAt}}</mat-card-subtitle>
+        </mat-card-header>
+        <mat-card-actions>
+            <button mat-flat-button color="primary" class="space"
+                [routerLink]="['/currentaccount-deposit', currentAccount.userId]">
+                <mat-icon>edit</mat-icon> Depositar
+            </button>
+            <button mat-flat-button color="primary" class="space"
+                [routerLink]="['/currentaccount-payment', currentAccount.userId]">
+                <mat-icon>edit</mat-icon> Pagar
+            </button>
+            <button mat-flat-button color="primary" class="space"
+                [routerLink]="['/currentaccount-transfer', currentAccount.userId]">
+                <mat-icon>edit</mat-icon> Transferir
+            </button>
+            <button mat-flat-button color="warn" class="space"
+                [routerLink]="['/currentaccount-withdraw', currentAccount.userId]">
+                <mat-icon>edit</mat-icon> Retirar
+            </button>
+        </mat-card-actions>
+    </mat-card>
+</div>

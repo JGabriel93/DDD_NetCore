@@ -1,0 +1,13 @@
+<div>
+    <h3>Realizar transferência</h3>
+</div>
+<form class="example-container" [formGroup]="transferForm" (ngSubmit)="addTransfer(transferForm.value)">
+    <mat-form-field class="space" style="width: 400px;">
+        <input matInput name="cpfRecipient" placeholder="CPF destinatário" formControlName="cpfRecipient">
+    </mat-form-field>
+    <mat-form-field>
+        <input matInput name="value" placeholder="Valor" formControlName="value" type="number">
+    </mat-form-field>
+
+    <button type="submit" [disabled]="!transferForm.valid" mat-button color="primary">Transferir</button>
+</form>
