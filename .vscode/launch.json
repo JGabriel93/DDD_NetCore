@@ -20,14 +20,7 @@
                 "pattern": "\\bNow listening on:\\s+(https?://\\S+)"
             },
             "env": {
-                "ASPNETCORE_ENVIRONMENT": "Development",
-                "DB_CONNECTION": "Persist Security Info=True;Server=localhost;Port=3306;DataBase=dbAPI;Uid=root;Pwd=admin",
-                "DATABASE": "MYSQL",
-                "MIGRATION": "APPLY",
-                "Audience": "http://localhost",
-                "Issuer": "DDD_NetCore",
-                "Seconds": "600",
-                "YIELD_VALUE": "0,005"
+                "ASPNETCORE_ENVIRONMENT": "Development"
             },
             "sourceFileMap": {
                 "/Views": "${workspaceFolder}/Views"

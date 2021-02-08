@@ -18,7 +18,7 @@ namespace Api.CrossCutting.DependencyInjection
             serviceCollection.AddScoped<ICurrentAccountRepository, CurrentAccountImplementation>();
             serviceCollection.AddScoped<IHistoricCurrentAccountRepository, HistoricCurrentAccountImplementation>();
 
-            serviceCollection.AddDbContext<MyContext>(context => context.UseMySql(Environment.GetEnvironmentVariable("DB_CONNECTION")));
+            serviceCollection.AddDbContext<MyContext>(context => context.UseMySql(Environment.GetEnvironmentVariable("Connection")));
         }
     }
 }

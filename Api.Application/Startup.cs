@@ -49,14 +49,19 @@ namespace application
 
             if (_environment.IsEnvironment("Test"))
             {
-                Environment.SetEnvironmentVariable("DB_CONNECTION", "Persist Security Info=True;Server=localhost;Port=3306;DataBase=dbAPI_IntegrationTest;Uid=root;Pwd=admin");
-                Environment.SetEnvironmentVariable("DATABASE", "MYSQL");
-                Environment.SetEnvironmentVariable("MIGRATION", "APPLY");
-                Environment.SetEnvironmentVariable("Audience", "http://localhost");
-                Environment.SetEnvironmentVariable("Issuer", "DDD_NetCore");
-                Environment.SetEnvironmentVariable("Seconds", "600");
-                Environment.SetEnvironmentVariable("YIELD_VALUE", "0,005");
+                Environment.SetEnvironmentVariable("Connection", Configuration["ConnectionStringsTest:Connection"]);
             }
+            else
+            {
+                Environment.SetEnvironmentVariable("Connection", Configuration["ConnectionStrings:Connection"]);
+            }
+
+            Environment.SetEnvironmentVariable("DATABASE", Configuration["ConnectionStrings:DataBase"]);
+            Environment.SetEnvironmentVariable("MIGRATION", Configuration["ConnectionStrings:Migration"]);
+            Environment.SetEnvironmentVariable("Audience", Configuration["Token:Audience"]);
+            Environment.SetEnvironmentVariable("Issuer", Configuration["Token:Issuer"]);
+            Environment.SetEnvironmentVariable("Seconds", Configuration["Token:Seconds"]);
+            Environment.SetEnvironmentVariable("YIELD_VALUE", Configuration["Configuration:yieldValue"]);
 
             ConfigureService.ConfigureDependenciesService(services);
             ConfigureRepository.ConfigureDependenciesRepository(services);
@@ -92,7 +97,7 @@ namespace application
                 endpoints.MapControllers();
             });
 
-            if (Environment.GetEnvironmentVariable("MIGRATION").ToUpper() == "APPLY")
+            if (Configuration["ConnectionStrings:Migration"].ToUpper() == "APPLY")
             {
                 using (var service = app.ApplicationServices.GetRequiredService<IServiceScopeFactory>()
                                                             .CreateScope())
@@ -157,8 +162,8 @@ namespace application
             {
                 var paramsValidation = bearerOp.TokenValidationParameters;
                 paramsValidation.IssuerSigningKey = signingConfigurations.Key;
-                paramsValidation.ValidAudience = Environment.GetEnvironmentVariable("Audience");
-                paramsValidation.ValidIssuer = Environment.GetEnvironmentVariable("Issuer");
+                paramsValidation.ValidAudience = Configuration["Token:Audience"];
+                paramsValidation.ValidIssuer = Configuration["Token:Issuer"];
                 paramsValidation.ValidateIssuerSigningKey = true;
                 paramsValidation.ValidateLifetime = true;
                 paramsValidation.ClockSkew = TimeSpan.Zero;
