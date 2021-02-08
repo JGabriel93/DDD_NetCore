@@ -62,12 +62,10 @@ O comandos irão compilar os projetos e realizar a execução de ambos.
 * Projeto em Angular: http://localhost:4200/users
 
 Com a criação do banco de dados, para facilitar o uso, são incluídos automaticamente esses dados de usuários:
-* Nome: João
-* Email: admin@mail.com
+* Nome: João, email: admin@mail.com
 *(para esse usuário, foi inserido um depósito de R$ 1000)*
 
-* Nome: José
-* Email: jose@mail.com
+* Nome: José, email: jose@mail.com
 *(para esse usuário, foi apenas criada a conta com R$ 0)*
 
 ## Funcionalidades
