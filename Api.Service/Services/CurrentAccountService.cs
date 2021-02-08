@@ -4,6 +4,7 @@ using Api.Domain.Dtos.CurrentAccount;
 using Api.Domain.Dtos.Transaction;
 using Api.Domain.Entities.CurrentAccount;
 using Api.Domain.Interfaces.Services.CurrentAccount;
+using Api.Domain.Mappings;
 using Api.Domain.Repository;
 using AutoMapper;
 
@@ -50,7 +51,7 @@ namespace Api.Service.Services
             entity.Balance += depositDto.Value;
 
             var result = await _repository.UpdateAsync(entity, entity.Id);
-            await InsertHistory("D", depositDto.Value, entity.Id);
+            await InsertHistory(HistoricCurrentAccountMapper.Description.Deposit.Key, depositDto.Value, entity.Id);
 
             return _mapper.Map<CurrentAccountDtoResult>(result);
         }
@@ -63,7 +64,7 @@ namespace Api.Service.Services
             entity.Balance -= paymentDto.Value;
 
             var result = await _repository.UpdateAsync(entity, entity.Id);
-            await InsertHistory("P", paymentDto.Value, entity.Id);
+            await InsertHistory(HistoricCurrentAccountMapper.Description.Payment.Key, paymentDto.Value, entity.Id);
 
             return _mapper.Map<CurrentAccountDtoResult>(result);
         }
@@ -82,8 +83,8 @@ namespace Api.Service.Services
             var result = await _repository.UpdateAsync(entity, entity.Id);
             await _repository.UpdateAsync(entityRecipient, entityRecipient.Id);
 
-            await InsertHistory("T", transferDto.Value, entity.Id);
-            await InsertHistory("D", transferDto.Value, entityRecipient.Id);
+            await InsertHistory(HistoricCurrentAccountMapper.Description.Transfer.Key, transferDto.Value, entity.Id);
+            await InsertHistory(HistoricCurrentAccountMapper.Description.TransferReceived.Key, transferDto.Value, entityRecipient.Id);
 
             return _mapper.Map<CurrentAccountDtoResult>(result);
         }
@@ -96,7 +97,7 @@ namespace Api.Service.Services
             entity.Balance -= withdrawDto.Value;
 
             var result = await _repository.UpdateAsync(entity, entity.Id);
-            await InsertHistory("W", withdrawDto.Value, entity.Id);
+            await InsertHistory(HistoricCurrentAccountMapper.Description.Withdraw.Key, withdrawDto.Value, entity.Id);
 
             return _mapper.Map<CurrentAccountDtoResult>(result);
         }
@@ -116,7 +117,7 @@ namespace Api.Service.Services
                         addedValue = decimal.Round(decimal.Divide(decimal.Multiply(account.Balance, yield), 100), 2);
                         account.Balance += addedValue;
                         await _repository.UpdateAsync(account, account.Id);
-                        await InsertHistory("R", addedValue, account.Id);
+                        await InsertHistory(HistoricCurrentAccountMapper.Description.Yield.Key, addedValue, account.Id);
                     }
                 }
 

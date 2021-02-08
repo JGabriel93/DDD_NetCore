@@ -8,7 +8,7 @@ namespace Api.Domain.Dtos.CurrentAccount
         public Guid Id { get; set; }
         public decimal Balance { get; set; }
         public DateTime CreateAt { get; set; }
-        public DateTime UpdateAt { get; set; }
+        public string UpdateAt { get; set; }
         public Guid UserId { get; set; }
 
         public UserDtoResult User { get; set; }
