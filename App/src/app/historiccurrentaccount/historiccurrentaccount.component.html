@@ -1,26 +1,24 @@
 <div>
     <h3>Histórico de transações</h3>
 </div>
+<mat-card-header>
+    <mat-card-title>
+        <h2>{{user.name}}</h2>
+    </mat-card-title>
+</mat-card-header>
 <table mat-table [dataSource]="dataSource" class="mat-elevation-z8">
-
-    <!--- Note that these columns can be defined in any order.
-          The actual rendered columns are set as a property on the row definition" -->
-
-    <!-- Name Column -->
     <ng-container matColumnDef="movement">
         <th mat-header-cell *matHeaderCellDef> Tipo do movimento </th>
         <td mat-cell *matCellDef="let element"> {{element.movement}} </td>
     </ng-container>
 
-    <!-- Weight Column -->
     <ng-container matColumnDef="amountMoved">
-        <th mat-header-cell *matHeaderCellDef> Valor </th>
+        <th mat-header-cell *matHeaderCellDef> Valor (R$) </th>
         <td mat-cell *matCellDef="let element"> {{element.amountMoved}} </td>
     </ng-container>
 
-    <!-- Symbol Column -->
     <ng-container matColumnDef="createAt">
-        <th mat-header-cell *matHeaderCellDef> Data </th>
+        <th mat-header-cell *matHeaderCellDef> Data da transação</th>
         <td mat-cell *matCellDef="let element"> {{element.createAt}} </td>
     </ng-container>
 

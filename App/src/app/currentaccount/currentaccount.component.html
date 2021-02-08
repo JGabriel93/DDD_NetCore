@@ -3,31 +3,37 @@
         <mat-spinner *ngIf="isLoadingResults"></mat-spinner>
     </div>
     <div class="button-row">
-        <button mat-flat-button color="accent" [routerLink]="['/users']">
+        <button mat-flat-button style="background: #E02B57" [routerLink]="['/users']">
             <mat-icon>list</mat-icon> Voltar
         </button>
     </div>
+    <br />
+    <mat-card-header>
+        <mat-card-title>
+            <h2>{{user.name}}</h2>
+        </mat-card-title>
+    </mat-card-header>
     <mat-card class="example-card">
         <mat-card-header>
             <mat-card-title>
-                <h2>{{currentAccount.balance}}</h2>
+                <h2>R$ {{currentAccount.balance}}</h2>
             </mat-card-title>
-            <mat-card-subtitle>{{currentAccount.updateAt}}</mat-card-subtitle>
+            <mat-card-subtitle>Data da última transação: {{currentAccount.updateAt}}</mat-card-subtitle>
         </mat-card-header>
         <mat-card-actions>
-            <button mat-flat-button color="primary" class="space"
+            <button mat-flat-button style="background: #236d16;" class="space"
                 [routerLink]="['/currentaccount-deposit', currentAccount.userId]">
                 <mat-icon>edit</mat-icon> Depositar
             </button>
-            <button mat-flat-button color="primary" class="space"
+            <button mat-flat-button style="background: #E02B57" class="space"
                 [routerLink]="['/currentaccount-payment', currentAccount.userId]">
                 <mat-icon>edit</mat-icon> Pagar
             </button>
-            <button mat-flat-button color="primary" class="space"
+            <button mat-flat-button style="background: #E02B57" class="space"
                 [routerLink]="['/currentaccount-transfer', currentAccount.userId]">
                 <mat-icon>edit</mat-icon> Transferir
             </button>
-            <button mat-flat-button color="warn" class="space"
+            <button mat-flat-button style="background: #E02B57" class="space"
                 [routerLink]="['/currentaccount-withdraw', currentAccount.userId]">
                 <mat-icon>edit</mat-icon> Retirar
             </button>

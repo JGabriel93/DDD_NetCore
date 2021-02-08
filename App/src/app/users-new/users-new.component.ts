@@ -30,7 +30,7 @@ export class UsersNewComponent implements OnInit {
       .subscribe(res => {
         const id = res['id'];
         this.isLoadingResults = false;
-        this.router.navigate(['/users-detail', id]);
+        this.router.navigate(['/users']);
       }, (err) => {
         console.log(err);
         this.isLoadingResults = false;

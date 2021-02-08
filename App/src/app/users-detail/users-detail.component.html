@@ -3,10 +3,11 @@
         <mat-spinner *ngIf="isLoadingResults"></mat-spinner>
     </div>
     <div class="button-row">
-        <button mat-flat-button color="accent" [routerLink]="['/users']">
+        <button mat-flat-button style="background: #E02B57" [routerLink]="['/users']">
             <mat-icon>list</mat-icon> Voltar
         </button>
     </div>
+    <br />
     <mat-card class="example-card">
         <mat-card-header>
             <mat-card-title>
@@ -16,10 +17,10 @@
             <mat-card-subtitle>{{user.cpf}}</mat-card-subtitle>
         </mat-card-header>
         <mat-card-actions>
-            <button mat-flat-button color="primary" class="teste" [routerLink]="['/users-update', user.id]">
+            <button mat-flat-button style="background: #236d16" class="space" [routerLink]="['/users-update', user.id]">
                 <mat-icon>edit</mat-icon> Editar
             </button>
-            <button mat-flat-button color="warn" (click)="deleteUser(user.id)">
+            <button mat-flat-button color="warn" class="space" (click)="deleteUser(user.id)">
                 <mat-icon>delete</mat-icon> Excluir
             </button>
         </mat-card-actions>

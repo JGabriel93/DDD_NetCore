@@ -3,11 +3,12 @@
 </div>
 <form class="example-container" [formGroup]="paymentForm" (ngSubmit)="addPayment(paymentForm.value)">
     <mat-form-field class="space" style="width: 400px;">
-        <input matInput name="barCode" placeholder="Código de barras" formControlName="barCode">
+        <input matInput name="barCode" class="space" placeholder="Código de barras" formControlName="barCode">
     </mat-form-field>
     <mat-form-field>
-        <input matInput name="value" placeholder="Valor" formControlName="value" type="number">
+        <input matInput name="value" placeholder="Valor" class="space" formControlName="value" type="number">
     </mat-form-field>
 
-    <button type="submit" [disabled]="!paymentForm.valid" mat-button color="primary">Pagar</button>
+    <button type="submit" [disabled]="!paymentForm.valid" mat-flat-button
+        style="background: #E02B57; margin-left: 10px">Pagar</button>
 </form>

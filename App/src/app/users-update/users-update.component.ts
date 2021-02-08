@@ -14,6 +14,7 @@ export class UsersUpdateComponent implements OnInit {
   name: String = '';
   email: String = '';
   cpf: String = '';
+  password: String = '';
   isLoadingResults = false;
 
   constructor(private router: Router, private route: ActivatedRoute, private api: ApiService, private formBuilder: FormBuilder) { }
@@ -21,9 +22,10 @@ export class UsersUpdateComponent implements OnInit {
   ngOnInit() {
     this.getUser(this.route.snapshot.params['id']);
     this.userForm = this.formBuilder.group({
-      'nome_produto': [null, Validators.required],
-      'desc_produto': [null, Validators.required],
-      'preco_produto': [null, Validators.required]
+      'name': [null, Validators.required],
+      'email': [null, Validators.required],
+      'cpf': [null, Validators.required],
+      'password': [null, Validators.required]
     });
   }
 
@@ -33,7 +35,8 @@ export class UsersUpdateComponent implements OnInit {
       this.userForm.setValue({
         name: data.name,
         email: data.email,
-        cpf: data.cpf
+        cpf: data.cpf,
+        password: ''
       });
     });
   }
@@ -47,7 +50,6 @@ export class UsersUpdateComponent implements OnInit {
       }, (err) => {
         console.log(err);
         this.isLoadingResults = false;
-      }
-      );
+      });
   }
 }

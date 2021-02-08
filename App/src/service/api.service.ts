@@ -47,19 +47,19 @@ export class ApiService {
     );
   }
 
-  updateUser(id: any, user: any): Observable<any> {
+  updateUser(id: any, user: any): Observable<User> {
     const url = `${apiUrlUser}/${id}`;
-    return this.http.put(url, user, httpOptions).pipe(
+    return this.http.put<User>(url, user, httpOptions).pipe(
       tap(_ => console.log('update user by id=${id}')),
-      catchError(this.handleError<any>('updateUser'))
+      catchError(this.handleError<User>('updateUser'))
     );
   }
 
-  deleteUser(id: any): Observable<User> {
-    const url = `${apiUrlUser}/delete/${id}`;
-    return this.http.delete<User>(url, httpOptions).pipe(
+  deleteUser(id: any): Observable<any> {
+    const url = `${apiUrlUser}/${id}`;
+    return this.http.delete(url, httpOptions).pipe(
       tap(_ => console.log('delete user by id=${id}')),
-      catchError(this.handleError<User>('deleteUser'))
+      catchError(this.handleError<any>('deleteUser'))
     );
   }
 
@@ -103,10 +103,11 @@ export class ApiService {
     );
   }
 
-  addApplyIncome(): Observable<CurrentAccount> {
-    return this.http.post<CurrentAccount>(apiUrlCurrentAccount + "applyincome", httpOptions).pipe(
-      tap((Income: CurrentAccount) => console.log('add withdraw w/ id=${user.id}')),
-      catchError(this.handleError<CurrentAccount>('addWithdraw'))
+  addApplyIncome(): Observable<any> {
+    const url = `${apiUrlCurrentAccount}/applyincome`;
+    return this.http.post(url, httpOptions).pipe(
+      tap(_ => console.log('add applyIncome w/ id=${user.id}')),
+      catchError(this.handleError<CurrentAccount>('applyIncome'))
     );
   }
 
